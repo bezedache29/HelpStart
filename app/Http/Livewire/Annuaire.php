@@ -13,10 +13,22 @@ class Annuaire extends Component
     public $search = '';
     public $order = 'name';
     public $sorting = 'ASC';
+    public $showModal = false;
+    
+    public $name = '';
+    public $firstname = '';
+    public $email = '';
+    public $user_id = null;
 
     protected $paginationTheme = 'bootstrap';
 
     protected $listenners = ['resetPage'];
+
+    protected $rules = [
+        'name' => 'required',
+        'firstname' => 'required',
+        'email' => 'required|email'
+    ];
 
     public function render()
     {
@@ -46,5 +58,51 @@ class Annuaire extends Component
         $this->resetPage();
     }
 
+    public function showModal($user_id)
+    {
+        // Permet de reset les messages d'erreur a l'ouverture de la modal
+        $this->resetValidation();
 
+        $user = User::find($user_id);
+        $this->name = $user->name;
+        $this->firstname = $user->firstname;
+        $this->email = $user->email;
+        $this->user_id = $user->id;
+
+        $this->showModal = true;
+    }
+
+    public function updatedName()
+    {
+        $this->validateOnly('name');
+    }
+
+    public function updatedFirstname()
+    {
+        $this->validateOnly('firstname');
+    }
+
+    public function updatedEmail()
+    {
+        $this->validateOnly('email');
+    }
+
+    public function updateUser()
+    {
+        $this->validate();
+
+        User::where('id', $this->user_id)->update([
+            'name' => $this->name,
+            'firstname' => $this->firstname,
+            'email' => $this->email,
+        ]);
+
+        $this->showModal = false;
+        $this->user_id = null;
+        $this->name = '';
+        $this->firstname = '';
+        $this->email = '';
+
+        session()->flash('message', 'Le user a bien été mis à jour.');
+    }
 }
