@@ -1,7 +1,8 @@
 <div>
-    @if (!$help_request)
+    @if (!$help_request && !$create)
     <x-card>
-        <a href="{{ route('help.create') }}" class="btn btn-primary">Nouvelle demande</a>
+        {{-- <a href="{{ route('help.create') }}" class="btn btn-primary">Nouvelle demande</a> --}}
+        <a wire:click="createHelp" class="btn btn-primary">Nouvelle demande</a>
     </x-card>
 
     <table class="table table-bordered">
@@ -20,7 +21,9 @@
     <div class="d-flex justify-content-center">
         {{ $help_requests->links() }}
     </div>
-    @else
+    @elseif (!$help_request && $create)
+        @livewire('create-help')
+    @elseif ($help_request && !$create)
         @livewire('help', compact('help_request'))
     @endif
 </div>

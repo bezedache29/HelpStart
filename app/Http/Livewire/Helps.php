@@ -9,12 +9,18 @@ use Illuminate\Support\Facades\Auth;
 class Helps extends Component
 {
     public $help_request = null;
+    public $create = false;
 
     public function render()
     {
-        if ($this->help_request) {
+        if ($this->help_request && !$this->create) {
             return view('livewire.helps');
-        } else {
+
+        } 
+        elseif ($this->create && !$this->help_request) {
+            return view('livewire.helps');
+        } 
+        elseif (!$this->help_request && !$this->create) {
             $help_requests = $this->checkAuth();
             return view('livewire.helps', compact('help_requests'));
         }
@@ -23,6 +29,11 @@ class Helps extends Component
     public function showHelp($help_id)
     {
         $this->help_request = HelpRequest::find($help_id);
+    }
+
+    public function createHelp()
+    {
+        $this->create = true;
     }
 
     public function checkAuth()
