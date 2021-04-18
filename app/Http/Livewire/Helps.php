@@ -36,6 +36,11 @@ class Helps extends Component
         $this->create = true;
     }
 
+    public function storeHelp()
+    {
+        
+    }
+
     public function checkAuth()
     {
         if (Auth::user()->isStudent()) {

@@ -14,4 +14,9 @@ class CreateHelp extends Component
         $this->tags= Tag::orderBy('name')->get();
         return view('livewire.create-help');
     }
+
+    public function storeHelp()
+    {
+        
+    }
 }

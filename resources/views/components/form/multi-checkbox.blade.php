@@ -11,7 +11,7 @@
     @endforeach
 </x-form.group> --}}
 
-@props(['label', 'field', 'value' => [], 'values'])
+@props(['label', 'field', 'value' => [], 'values', 'wire' => false])
 
 <x-form.group :label="$label" :field="$field">
     @foreach($values as $k => $v)
@@ -20,7 +20,7 @@
             $field_name = $field . '[]';
             $is_checked = in_array($k, old($field) ?? $value);
         @endphp
-        <x-form.checkbox :label="$v" :value="$k" :field="$field_name" :id="$field_id" :checked="$is_checked" />
+        <x-form.checkbox :wire="$wire" :label="$v" :value="$k" :field="$field_name" :id="$field_id" :checked="$is_checked" />
     @endforeach
 
 </x-form.group>

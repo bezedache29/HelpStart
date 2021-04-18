@@ -83,11 +83,11 @@ class HelpController extends Controller
         return redirect()->route('help.show', $help_request->id);
     }
 
-    public function create()
-    {
-        $tags= Tag::orderBy('name')->get();
-        return view('help.create', compact('tags'));
-    }
+    // public function create()
+    // {
+    //     $tags= Tag::orderBy('name')->get();
+    //     return view('help.create', compact('tags'));
+    // }
 
     public function store(Request $request)
     {
