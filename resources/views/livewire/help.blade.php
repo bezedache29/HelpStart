@@ -60,7 +60,7 @@
 
     <x-card>
         <x-card title="Répondre à la demande {{ $help_request->title }}">
-            <x-form route="help.answer.store" routeId="{{ $help_request->id }}" files="true">
+            <x-form wire="answerHelp">
                 <x-form.textarea field="content" label="Proposer une solution ou écrire un message" rows="15" />
                 <x-form.submit label="Répondre" />
             </x-form>
