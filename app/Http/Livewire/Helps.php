@@ -11,6 +11,8 @@ class Helps extends Component
     public $help_request = null;
     public $create = false;
 
+    protected $listeners = ['closeCreate' => 'reload'];
+
     public function render()
     {
         if ($this->help_request && !$this->create) {
@@ -24,6 +26,12 @@ class Helps extends Component
             $help_requests = $this->checkAuth();
             return view('livewire.helps', compact('help_requests'));
         }
+    }
+
+    public function reload()
+    {
+        $this->create = false;
+        $this->render();
     }
 
     public function showHelp($help_id)
