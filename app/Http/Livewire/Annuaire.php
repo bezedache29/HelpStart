@@ -20,9 +20,14 @@ class Annuaire extends Component
     public $email = '';
     public $user_id = null;
 
+    public $addUserForm = false;
+
     protected $paginationTheme = 'bootstrap';
 
-    protected $listenners = ['resetPage'];
+    protected $listeners = [
+        'resetPage',
+        'userAdded' => 'closeAddUser'
+    ];
 
     protected $rules = [
         'name' => 'required',
@@ -104,5 +109,16 @@ class Annuaire extends Component
         $this->email = '';
 
         session()->flash('message', 'Le user a bien été mis à jour.');
+    }
+
+    public function addUser()
+    {
+        $this->addUserForm = true;
+    }
+
+    public function closeAddUser()
+    {
+        $this->addUserForm = false;
+        session()->flash('message', 'L\'utilisteur a bien été créé');
     }
 }

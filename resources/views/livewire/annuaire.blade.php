@@ -1,11 +1,18 @@
 <div>
     <x-card>
 
+        @if (!$addUserForm)
+
         @if (session()->has('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
             </div>
         @endif
+
+        <button class="btn btn-primary" wire:click="addUser">Créer un utilisateur</button>
+
+        <br />
+        <br />
 
         <label for="search">Recherche</label>
         <input type="text" name="search" id="search" class="form-control" wire:model.debounce.500ms="search">
@@ -74,6 +81,10 @@
         <div wire:loading wire:target="search">
             Recherche en cours ....
         </div>
+
+        @elseif ($addUserForm)
+            @livewire('create-user')
+        @endif
     
     </x-card>
 

@@ -51,6 +51,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    static public $profile_values = [
+        'administrator' => 'Administration',
+        'student' => 'Etudiant',
+        'teacher' => 'Enseignant',
+    ];
+
     public function profile()
     {
         return $this->morphTo();
