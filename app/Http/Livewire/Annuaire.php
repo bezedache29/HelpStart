@@ -14,6 +14,9 @@ class Annuaire extends Component
     public $order = 'name';
     public $sorting = 'ASC';
     public $showModal = false;
+    public $showModalDel = false;
+
+    public $user_del;
     
     public $name = '';
     public $firstname = '';
@@ -120,5 +123,18 @@ class Annuaire extends Component
     {
         $this->addUserForm = false;
         session()->flash('message', 'L\'utilisteur a bien été créé');
+    }
+
+    public function showModalDel($user_id)
+    {
+        $this->user_del = User::find($user_id);
+        $this->showModalDel = true;
+    }
+
+    public function delUser()
+    {
+        $this->user_del->delete();
+        $this->showModalDel = false;
+        session()->flash('message', 'L\'utilisteur a bien été supprimé');
     }
 }

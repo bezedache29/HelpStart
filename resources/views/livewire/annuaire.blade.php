@@ -1,7 +1,6 @@
 <div>
+    @if (!$addUserForm)
     <x-card>
-
-        @if (!$addUserForm)
 
         @if (session()->has('message'))
             <div class="alert alert-success">
@@ -55,6 +54,7 @@
                     </th>
                     <th>Fonction</th>
                     <th>&nbsp;</th>
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +66,7 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->function }}</td>
                     <td><button class="btn btn-primary" wire:click="showModal({{ $user->id }})">Modifier</button></td>
+                    <td><button class="btn btn-danger" wire:click="showModalDel({{ $user->id }})">Supprimer</button></td>
                 </tr>
                 @empty
                 <tr>
@@ -81,12 +82,13 @@
         <div wire:loading wire:target="search">
             Recherche en cours ....
         </div>
-
-        @elseif ($addUserForm)
-            @livewire('create-user')
-        @endif
-    
     </x-card>
+
+    @elseif ($addUserForm)
+        @livewire('create-user')
+    @endif
+    
+    
 
     @if ($showModal)
         <div class="modal show" tabindex="-1" style="display: block;">
@@ -115,6 +117,28 @@
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    @endif
+
+    @if ($showModalDel)
+        <div class="modal show" tabindex="-1" style="display: block;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Supprimer {{ $user_del->full_name }}</h5>
+                        <button type="button" class="btn-close" aria-label="Close" wire:click="$set('showModalDel', false)">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <p>Êtes vous sur de vouloir supprimer l'utilisateur : <strong>{{ $user_del->full_name }}</strong> ?</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" wire:click="$set('showModalDel', false)">Non</button>
+                        <button type="submit" class="btn btn-danger" wire:click="delUser">Oui</button>
+                    </div>
+                </div>
             </div>
         </div>
     @endif
