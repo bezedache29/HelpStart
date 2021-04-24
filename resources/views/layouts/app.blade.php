@@ -58,9 +58,6 @@
                             {{-- Utilisation de la gate help (check AuthServiceProvider) --}}
                             @can('help')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('directory.index') }}">Annuaire</a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{ route('course.index') }}" class="nav-link">Cours</a>
                             </li>
                             <li class="nav-item">
@@ -105,6 +102,10 @@
 
         <main class="py-4">
             @yield('content')
+
+            @auth
+                @livewire('chat')
+            @endauth
         </main>
     </div>
 
