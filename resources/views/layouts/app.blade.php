@@ -104,7 +104,7 @@
             @yield('content')
 
             @auth
-                @livewire('chat')
+                {{-- @livewire('chat') --}}
             @endauth
         </main>
     </div>

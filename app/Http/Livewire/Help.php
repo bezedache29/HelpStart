@@ -45,7 +45,7 @@ class Help extends Component
         // Envoie d'un mail au user qui a créé la demande d'aide
         // Mail::to($help_request->student->user->email)->send(new HelpRequestCommented($help_request, $answer));
 
-        // $this->help_request->student->user->notify(new HelpRequestCommented($this->help_request, $answer));
+        $this->help_request->student->user->notify(new HelpRequestCommented($this->help_request, $answer));
 
         $this->content = '';
         $this->help_id = $this->help_request->id;
